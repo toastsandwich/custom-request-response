@@ -19,7 +19,7 @@ import (
 
 type Response struct {
 	// For sending the response
-	conn net.Conn `gob:"-"` // exclude from gob
+	Conn net.Conn `gob:"-"` // exclude from gob
 	// Meta data will store all the required info like keys,
 	// users,
 	MetaData   MetaData
@@ -33,7 +33,7 @@ type Response struct {
 // send the response to respective conn
 func (r *Response) Send() error {
 	defer r.Close() // Ensure cleanup
-	if r.conn == nil {
+	if r.Conn == nil {
 		return errors.New("connection not initialized")
 	}
 	return nil
@@ -58,7 +58,7 @@ func (r *Response) Status(statusCode int) {
 // Once the response is sent close the Response
 func (r *Response) Close() error {
 	r.MetaData.Close()
-	return r.conn.Close()
+	return r.Conn.Close()
 }
 
 func DeserializeResponse(b []byte) (*Response, error) {
