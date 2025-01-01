@@ -61,7 +61,7 @@ func (r *Response) Close() error {
 	return r.conn.Close()
 }
 
-func Derialize(b []byte) (*Response, error) {
+func Deserialize(b []byte) (*Response, error) {
 	buffer := bytes.NewBuffer(b)
 	var r Response
 	err := gob.NewDecoder(buffer).Decode(&r)
