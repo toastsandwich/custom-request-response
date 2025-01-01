@@ -23,7 +23,7 @@ func (r *Request) Meta() *MetaData {
 	return &r.MetaData
 }
 
-func (r *Request) Serialize() ([]byte, error) {
+func (r *Request) SerializeRequest() ([]byte, error) {
 	buffer := bytes.NewBuffer(nil)
 	err := gob.NewEncoder(buffer).Encode(r)
 	if err != nil {
@@ -32,7 +32,7 @@ func (r *Request) Serialize() ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
-func Deserialize(req []byte) (*Request, error) {
+func DeserializeRequest(req []byte) (*Request, error) {
 	buffer := bytes.NewBuffer(req)
 	var r Request
 	err := gob.NewDecoder(buffer).Decode(&r)
