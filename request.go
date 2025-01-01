@@ -3,6 +3,8 @@ package customrequestresponsewriter
 import (
 	"bytes"
 	"encoding/gob"
+	"fmt"
+	"strings"
 )
 
 type Request struct {
@@ -18,7 +20,7 @@ func (r *Request) WriteBody(b []byte) {
 	r.BodyLength += len(b)
 }
 
-// Return pointer to meta data dontknow why using this, may be inspired by http package
+// Return pointer to meta data don't know why using this, may be inspired by http package
 func (r *Request) Meta() *MetaData {
 	return &r.MetaData
 }
@@ -40,4 +42,15 @@ func DeserializeRequest(req []byte) (*Request, error) {
 		return nil, err
 	}
 	return &r, nil
+}
+
+func (r *Request) String() string {
+	builder := &strings.Builder{}
+	metadata := *r.Meta()
+	for k, v := range metadata {
+		pair := fmt.Sprintf("%s: %s\n", k, v)
+		builder.WriteString(pair)
+	}
+	builder.Write(r.Body)
+	return builder.String()
 }
