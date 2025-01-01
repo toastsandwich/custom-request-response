@@ -51,7 +51,7 @@ func DeserializeRequest(from net.Conn, req []byte) (*Request, error) {
 
 func (r *Request) String() string {
 	builder := &strings.Builder{}
-	builder.WriteString(fmt.Sprintf("from: %s", r.Conn.RemoteAddr().String()))
+	builder.WriteString(fmt.Sprintf("from: %s\n", r.Conn.RemoteAddr().String()))
 	metadata := *r.Meta()
 	for k, v := range metadata {
 		pair := fmt.Sprintf("%s: %s\n", k, v)
