@@ -61,14 +61,14 @@ func (r *Response) Close() error {
 	return r.conn.Close()
 }
 
-func Deserialize(b []byte) (*Response, error) {
+func DeserializeResponse(b []byte) (*Response, error) {
 	buffer := bytes.NewBuffer(b)
 	var r Response
 	err := gob.NewDecoder(buffer).Decode(&r)
 	return &r, err
 }
 
-func (r *Response) Serialize() ([]byte, error) {
+func (r *Response) SerializeResponse() ([]byte, error) {
 	buffer := bytes.NewBuffer(nil)
 	err := gob.NewEncoder(buffer).Encode(r)
 	return buffer.Bytes(), err
