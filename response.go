@@ -47,6 +47,9 @@ func (r *Response) Write(data []byte) {
 
 // get metadata
 func (r *Response) Meta() *MetaData {
+	if r.MetaData == nil {
+		r.MetaData = make(MetaData)
+	}
 	return &r.MetaData
 }
 
