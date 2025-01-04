@@ -25,6 +25,9 @@ func (r *Request) WriteBody(b []byte) {
 
 // Return pointer to meta data don't know why using this, may be inspired by http package
 func (r *Request) Meta() *MetaData {
+	if r.MetaData == nil {
+		r.MetaData = make(MetaData)
+	}
 	return &r.MetaData
 }
 
